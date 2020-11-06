@@ -6,4 +6,5 @@ public class ARMask {
     public String toString() {
         return "ARMask";
     }
+
 }

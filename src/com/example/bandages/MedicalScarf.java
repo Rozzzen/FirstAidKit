@@ -11,8 +11,4 @@ public class MedicalScarf extends BandagingMaterial {
     public void bandageWound() {
         System.out.println("Wound was bandaged by Medical scarf");
     }
-
-    public void immobilizeLimb() {
-        System.out.println("Limb was immobilized by Medical scarf");
-    }
 }

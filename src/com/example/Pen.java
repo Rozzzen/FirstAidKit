@@ -1,5 +1,5 @@
 package com.example;
 
 public interface Pen {
-    public void write();
+    public void write(Notepad notepad, String message);
 }

@@ -2,6 +2,8 @@ package com.example.bandages;
 
 import com.example.Material;
 
+import java.util.Objects;
+
 public abstract class BandagingMaterial {
     protected final int width;
     protected final int length;
@@ -19,5 +21,20 @@ public abstract class BandagingMaterial {
     return "Bandage with width: " + width +
             " length: " + length +
             " material: " + material.getMaterial();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BandagingMaterial that = (BandagingMaterial) o;
+        return width == that.width &&
+                length == that.length &&
+                material == that.material;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, length, material);
     }
 }
