@@ -8,7 +8,7 @@ public enum Material {
     GAUZE("Gauze"),
     SILK ("Silk");
 
-    private String material;
+    private final String material;
 //+
     Material(String material) {
         this.material = material;
@@ -16,14 +16,6 @@ public enum Material {
 
     public String getMaterial() {
         return material;
-    }
-
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Material material: Material.values()) {
-            stringBuilder.append(material.material).append(", ");
-        }
-        return stringBuilder.toString();
     }
 
 }
