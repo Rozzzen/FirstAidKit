@@ -2,12 +2,11 @@ package com.example;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class Garrot {
 
     private LocalTime time;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public void stopBleeding(Notepad notepad) {
         System.out.println("Bleeding has stopeed using garrot");
@@ -22,4 +21,6 @@ public class Garrot {
     public String toString() {
         return "Garrot which was installed in " + time;
     }
+
+    public LocalTime getTime() { return time; }
 }

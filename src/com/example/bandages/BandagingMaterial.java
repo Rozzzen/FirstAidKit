@@ -11,6 +11,14 @@ public abstract class BandagingMaterial {
 //+
     public abstract void bandageWound();
 
+    public Material getMaterial() {
+        return material;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
     protected BandagingMaterial(int width, int length, Material material) {
         this.width = width;
         this.length = length;

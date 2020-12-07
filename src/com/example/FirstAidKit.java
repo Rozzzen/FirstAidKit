@@ -1,12 +1,11 @@
 package com.example;
 
+import com.example.bandages.Bandage;
 import com.example.bandages.BandagingMaterial;
 import com.example.exceptions.FirstAidKitException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FirstAidKit {
 
@@ -17,11 +16,13 @@ public class FirstAidKit {
     private Pen pen;
     private final List<Garrot> garrot;
     private final List<ARMask> arMask;
+    private final List<Dummy> dummyList;
 
     {
         bandage = new ArrayList<>();
         garrot = new ArrayList<>();
         arMask = new ArrayList<>();
+        dummyList = new ArrayList<>();
     }
 
     public FirstAidKit(BandagingMaterial bandage, CuttingDevice cuttingDevice, Notepad notepad, Pen pen, Garrot garrot, ARMask arMask, Gloves gloves) {
@@ -34,6 +35,13 @@ public class FirstAidKit {
         this.gloves = gloves;
     }
 
+    public List<BandagingMaterial> getBandages() {
+        return bandage;
+    }
+
+    public List<Dummy> getDummyList() {
+        return dummyList;
+    }
     public BandagingMaterial getBandage() throws FirstAidKitException {
         if (bandage.isEmpty()) throw new FirstAidKitException("Missing bandage");
         BandagingMaterial temp = bandage.get(bandage.size() - 1);
@@ -87,6 +95,8 @@ public class FirstAidKit {
         this.arMask.add(arMask);
     }
 
+    public void add(Dummy dummy) {this.dummyList.add(dummy);}
+
     public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -127,4 +137,94 @@ public class FirstAidKit {
     public int hashCode() {
         return Objects.hash(bandage, notepad, gloves);
     }
+
+
+    public static void main(String[] args) throws FirstAidKitException {
+        Pen redPen = new Pen() {
+            @Override
+            public void write(Notepad notepad, String message) {
+                notepad.writePage(message);
+                System.out.println("Write message using red pen");
+            }
+            @Override
+            public String toString() {return "Red pen";}
+        };
+        Pen pencil = new Pen() {
+            @Override
+            public void write(Notepad notepad, String message) {
+                notepad.writePage(message);
+                System.out.println("Message was written using pencil"); }
+            @Override
+            public String toString() {return "Pencil"; }
+        };
+        CuttingDevice scalpel = new CuttingDevice() {
+            @Override
+            public void cut() { System.out.println("incision was made with a scalpel");}
+            @Override
+            public String toString() {return "Scalpel";}
+        };
+
+        FirstAidKit firstAidKit1 =
+                new FirstAidKit(new Bandage(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
+        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
+        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH));
+        firstAidKit1.add(new Bandage(20, 80, Material.SILK));
+        firstAidKit1.add(new Bandage(30, 150, Material.SILK));
+        firstAidKit1.dummyList.add(new Dummy("Rachel", new DummyDaughter(1, "John"),
+                new DummyDaughter(2, "Marie")));
+        firstAidKit1.dummyList.add(new Dummy("Michael",new DummyDaughter(1, "Ivan"),
+                new DummyDaughter(2, "Ivanna"),
+                new DummyDaughter(2, "Ivanna"),
+                new DummyDaughter(1, "John"),
+                new DummyDaughter(1, "John")));
+
+        System.out.println(getClothMaxLength(firstAidKit1.getBandages()));
+        System.out.println(getMaxLength(firstAidKit1.getBandages()));
+        System.out.println(getAverageLength(firstAidKit1.getBandages()));
+        System.out.println(getGroupByMaterialAndLength(firstAidKit1.getBandages()));
+        System.out.println(getMostFrequentChildNames(firstAidKit1.dummyList));
+
+    }
+
+    public static List<String> getMostFrequentChildNames(List<Dummy> dummyList) {
+        List<String> result = new ArrayList<>();
+        dummyList.stream()
+                .flatMap(x -> x.getList().stream())
+                .collect(Collectors.toList())
+                .stream()
+                .collect(Collectors.groupingBy(DummyDaughter::getSex))
+                .forEach((key, value) -> value.stream()
+                        .collect(Collectors.groupingBy(DummyDaughter::getName, Collectors.counting()))
+                        .entrySet()
+                        .stream()
+                        .max(Map.Entry.comparingByValue())
+                        .ifPresent(x -> result.add(x.getKey())));
+        return result;
+    }
+
+    public static int getClothMaxLength(List<BandagingMaterial> list) {
+        return list.stream().
+                filter(x -> x.getMaterial().equals(Material.CLOTH)).
+                mapToInt(BandagingMaterial::getLength).
+                sum();
+    }
+
+    public static double getAverageLength(List<BandagingMaterial> list) {
+        return list.stream().
+                mapToInt(BandagingMaterial::getLength).
+                average().getAsDouble();
+    }
+
+    public static int getMaxLength(List<BandagingMaterial> list) {
+        return list.stream().
+                mapToInt(BandagingMaterial::getLength).
+                sum();
+    }
+
+    public static Map<Boolean, List<BandagingMaterial>> getGroupByMaterialAndLength(List<BandagingMaterial> list) {
+        return list.stream().
+                collect(Collectors.groupingBy((p) -> p.getMaterial().equals(Material.CLOTH) && p.getLength() > 30));
+    }
 }
+

@@ -1,12 +1,14 @@
 import com.example.*;
-import com.example.bandages.AdhesivePlaster;
-import com.example.bandages.Bandage;
-import com.example.bandages.GauzeNapkin;
-import com.example.bandages.MedicalScarf;
+import com.example.bandages.*;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.example.FirstAidKit.getMostFrequentChildNames;
 
 public class FirstAidKitTest {
 
@@ -54,6 +56,7 @@ public class FirstAidKitTest {
         firstAidKit1.getNotepad().readAll();
         firstAidKit1.getGloves().takeOffGloves();
     }
+
     @Test
     public void ShouldNotThrowExceptionIfMissingAidKitComponent() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
@@ -75,4 +78,5 @@ public class FirstAidKitTest {
         firstAidKit1.getNotepad().readAll();
         firstAidKit1.getGloves().takeOffGloves();
     }
+
 }
