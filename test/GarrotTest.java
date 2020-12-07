@@ -3,7 +3,9 @@ import com.example.Notepad;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.swing.text.DateFormatter;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class GarrotTest {
 
@@ -13,6 +15,7 @@ public class GarrotTest {
         Notepad notepad = new Notepad(25);
         garrot.stopBleeding(notepad);
         LocalTime localTime = LocalTime.now();
-        Assert.assertEquals(localTime, garrot.getTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        Assert.assertEquals(formatter.format(localTime), formatter.format(garrot.getTime()));
     }
 }

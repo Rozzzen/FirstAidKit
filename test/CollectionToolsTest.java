@@ -51,12 +51,9 @@ public class CollectionToolsTest {
         firstAidKit1.add(new Bandage(20, 80, Material.SILK));
         firstAidKit1.add(new Bandage(30, 150, Material.SILK));
         List<BandagingMaterial> list = firstAidKit1.getBandages();
-        OptionalInt actual = list.stream().
-                filter(x -> x.getMaterial().equals(Material.CLOTH)).
-                mapToInt(BandagingMaterial::getLength).
-                max();
-        int expected = 70;
-        Assert.assertEquals(actual.getAsInt(), expected);
+        int actual = FirstAidKit.getClothLengthSum(list);
+        int expected = 120;
+        Assert.assertEquals(actual, expected);
     }
 
     @Test
@@ -68,9 +65,7 @@ public class CollectionToolsTest {
         firstAidKit1.add(new Bandage(20, 80, Material.SILK));
         firstAidKit1.add(new Bandage(30, 150, Material.SILK));
         List<BandagingMaterial> list = firstAidKit1.getBandages();
-        double actual = list.stream().
-                mapToInt(BandagingMaterial::getLength).
-                average().getAsDouble();
+        double actual = FirstAidKit.getAverageLength(list);
         double expected = 100;
         Assert.assertEquals(actual, expected, 0);
     }
@@ -84,11 +79,9 @@ public class CollectionToolsTest {
         firstAidKit1.add(new Bandage(20, 80, Material.SILK));
         firstAidKit1.add(new Bandage(30, 150, Material.SILK));
         List<BandagingMaterial> list = firstAidKit1.getBandages();
-        OptionalInt actual = list.stream().
-                mapToInt(BandagingMaterial::getLength).
-                max();
+        int actual = FirstAidKit.getMaxLength(list);
         int expected = 150;
-        Assert.assertEquals(actual.getAsInt(), expected);
+        Assert.assertEquals(actual, expected);
     }
 
     @Test

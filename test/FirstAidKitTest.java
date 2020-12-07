@@ -43,40 +43,56 @@ public class FirstAidKitTest {
         expectedEx.expect(RuntimeException.class);
         expectedEx.expectMessage("Missing bandage");
         FirstAidKit firstAidKit1 = new FirstAidKit(new AdhesivePlaster(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        System.out.println(firstAidKit1);
 
         firstAidKit1.getBandage();
-
-        firstAidKit1.getGloves().takeOnGloves();
-        firstAidKit1.getPen().write(firstAidKit1.getNotepad(), "Person is heavy bleeding");
-        firstAidKit1.getArMask().doArtificalRespiration();
-        firstAidKit1.getGarrot().stopBleeding(firstAidKit1.getNotepad());
-        firstAidKit1.getBandage().bandageWound();
-        firstAidKit1.getCuttingDevice().cut();
-        firstAidKit1.getNotepad().readAll();
-        firstAidKit1.getGloves().takeOffGloves();
+        firstAidKit1.getBandage();
     }
 
     @Test
-    public void ShouldNotThrowExceptionIfMissingAidKitComponent() {
+    public void BandagingMaterialTest() {
+
+        BandagingMaterial bandagingMaterial = new GauzeNapkin(10, 50, Material.CLOTH);
+        FirstAidKit firstAidKit1 = new FirstAidKit(bandagingMaterial, scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        Assert.assertEquals(firstAidKit1.getBandage(), bandagingMaterial);
+
+        bandagingMaterial = new MedicalScarf(10, 50, Material.LEATHER);
+        firstAidKit1.add(bandagingMaterial);
+        Assert.assertEquals(firstAidKit1.getBandage(), bandagingMaterial);
+
+        bandagingMaterial = new Bandage(20, 40, Material.GAUZE);
+        firstAidKit1.add(bandagingMaterial);
+        Assert.assertEquals(firstAidKit1.getBandage(), bandagingMaterial);
+
+        bandagingMaterial = new AdhesivePlaster(10, 10, Material.GAUZE);
+        firstAidKit1.add(bandagingMaterial);
+        Assert.assertEquals(firstAidKit1.getBandage(), bandagingMaterial);
+    }
+    @Test
+    public void FirstAidKitFunctionalityTest() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        firstAidKit1.getBandage().bandageWound();
-        firstAidKit1.add(new ARMask());
-        firstAidKit1.add(new Garrot());
-        firstAidKit1.add(new MedicalScarf(10, 50, Material.LEATHER));
-        firstAidKit1.getBandage().bandageWound();
-        firstAidKit1.add(new Bandage(20, 40, Material.GAUZE));
-        firstAidKit1.getBandage().bandageWound();
-        firstAidKit1.add(new AdhesivePlaster(10, 10, Material.GAUZE));
-        System.out.println(firstAidKit1);
         firstAidKit1.getGloves().takeOnGloves();
-        firstAidKit1.getPen().write(firstAidKit1.getNotepad(), "Person is heavy bleeding");
         firstAidKit1.getArMask().doArtificalRespiration();
+        firstAidKit1.getNotepad().writePage("Patient heavily injured");
         firstAidKit1.getGarrot().stopBleeding(firstAidKit1.getNotepad());
         firstAidKit1.getBandage().bandageWound();
         firstAidKit1.getCuttingDevice().cut();
-        firstAidKit1.getNotepad().readAll();
         firstAidKit1.getGloves().takeOffGloves();
+        firstAidKit1.getNotepad().readAll();
+    }
+
+    @Test
+    public void FirstAidKitToStringTest() {
+        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        String actual = firstAidKit1.toString();
+        String expected = "First Aid Kit consists of: " + System.lineSeparator() +
+                "Bandage with width: 10 length: 50 material: Cloth " + System.lineSeparator() +
+                "Scalpel" + System.lineSeparator() +
+                "Notepad with 50 pages" + System.lineSeparator() +
+                "Gloves with material: Rubber" + System.lineSeparator() +
+                "Pencil" + System.lineSeparator() +
+                "Garrot which was installed in null" + System.lineSeparator() +
+                "ARMask";
+        Assert.assertEquals(actual, expected);
     }
 
 }
