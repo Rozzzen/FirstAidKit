@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class GarrotTest {
 
     @Test
-    public void ApplicationDateTest() {
+    public void StopBleeding_EqualsCurrentTime_True() {
         Garrot garrot = new Garrot();
         Notepad notepad = new Notepad(25);
         garrot.stopBleeding(notepad);

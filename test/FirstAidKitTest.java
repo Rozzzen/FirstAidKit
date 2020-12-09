@@ -14,7 +14,7 @@ public class FirstAidKitTest {
 
     CuttingDevice scalpel = new CuttingDevice() {
         @Override
-        public void cut() { System.out.println("incision was made with a scalpel");}
+        public void cut() {}
         @Override
         public String toString() {return "Scalpel";}
     };
@@ -22,7 +22,7 @@ public class FirstAidKitTest {
         @Override
         public void write(Notepad notepad, String message) {
             notepad.writePage(message);
-            System.out.println("Message was written using pencil"); }
+        }
         @Override
         public String toString() {return "Pencil"; }
     };

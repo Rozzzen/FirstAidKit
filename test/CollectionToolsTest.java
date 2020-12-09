@@ -14,7 +14,7 @@ import static org.hamcrest.core.Is.is;
 public class CollectionToolsTest {
     CuttingDevice scalpel = new CuttingDevice() {
         @Override
-        public void cut() { System.out.println("incision was made with a scalpel");}
+        public void cut() {}
         @Override
         public String toString() {return "Scalpel";}
     };
@@ -22,13 +22,13 @@ public class CollectionToolsTest {
         @Override
         public void write(Notepad notepad, String message) {
             notepad.writePage(message);
-            System.out.println("Message was written using pencil"); }
+        }
         @Override
         public String toString() {return "Pencil"; }
     };
 
     @Test
-    public void getMostFrequentChildNamesTest() {
+    public void getMostFrequentChildNames_TwoMostFrequentNames_True() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
         firstAidKit1.getDummyList().add(new Dummy("Rachel", new DummyDaughter(1, "John"),
                 new DummyDaughter(2, "Marie")));
@@ -43,7 +43,7 @@ public class CollectionToolsTest {
     }
 
     @Test
-    public void getClothMaxLengthTest() {
+    public void getClothMaxLength_Equals120_True() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
         firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
         firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
@@ -57,7 +57,7 @@ public class CollectionToolsTest {
     }
 
     @Test
-    public void getAverageLengthTest() {
+    public void getAverageLength_Equals100_True() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
         firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
         firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
@@ -71,7 +71,7 @@ public class CollectionToolsTest {
     }
 
     @Test
-    public void getMaxLengthTest() {
+    public void getMaxLength_Equals150_True() {
         FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
         firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
         firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
@@ -85,7 +85,7 @@ public class CollectionToolsTest {
     }
 
     @Test
-    public void getGroupByMaterialAndLengthTest() {
+    public void getGroupByMaterialAndLength_Filter_True() {
         BandagingMaterial clothBandage = new Bandage(10, 50, Material.CLOTH);
         BandagingMaterial gauzeBandage = new Bandage(20, 100, Material.GAUZE);
         FirstAidKit firstAidKit1 = new FirstAidKit(clothBandage, scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
