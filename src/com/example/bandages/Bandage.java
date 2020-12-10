@@ -4,8 +4,8 @@ import com.example.Material;
 
 public class Bandage extends BandagingMaterial {
 
-    public Bandage(int width, int length, Material material) {
-        super(width, length, material);
+    public Bandage(int width, int length, Material material, boolean sterile) {
+        super(width, length, material, sterile);
     }
 
     @Override

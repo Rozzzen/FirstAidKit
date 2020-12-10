@@ -5,9 +5,11 @@ import com.example.Material;
 import java.util.Objects;
 
 public abstract class BandagingMaterial {
+
     protected final int width;
     protected final int length;
     protected Material material;
+    private boolean sterile;
 //+
     public abstract void bandageWound();
 
@@ -19,10 +21,11 @@ public abstract class BandagingMaterial {
         return length;
     }
 
-    protected BandagingMaterial(int width, int length, Material material) {
+    protected BandagingMaterial(int width, int length, Material material, boolean sterile) {
         this.width = width;
         this.length = length;
         this.material = material;
+        this.sterile = sterile;
     }
 
     public String toString() {
@@ -39,6 +42,10 @@ public abstract class BandagingMaterial {
         return width == that.width &&
                 length == that.length &&
                 material == that.material;
+    }
+
+    public boolean isSterile() {
+        return sterile;
     }
 
     @Override

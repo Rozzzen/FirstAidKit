@@ -1,10 +1,10 @@
 package com.example;
 
-import com.example.bandages.Bandage;
 import com.example.bandages.BandagingMaterial;
 import com.example.exceptions.FirstAidKitException;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FirstAidKit {
@@ -16,13 +16,11 @@ public class FirstAidKit {
     private Pen pen;
     private final List<Garrot> garrot;
     private final List<ARMask> arMask;
-    private final List<Dummy> dummyList;
 
     {
         bandage = new ArrayList<>();
         garrot = new ArrayList<>();
         arMask = new ArrayList<>();
-        dummyList = new ArrayList<>();
     }
 
     public FirstAidKit(BandagingMaterial bandage, CuttingDevice cuttingDevice, Notepad notepad, Pen pen, Garrot garrot, ARMask arMask, Gloves gloves) {
@@ -39,9 +37,6 @@ public class FirstAidKit {
         return bandage;
     }
 
-    public List<Dummy> getDummyList() {
-        return dummyList;
-    }
     public BandagingMaterial getBandage() throws FirstAidKitException {
         if (bandage.isEmpty()) throw new FirstAidKitException("Missing bandage");
         BandagingMaterial temp = bandage.get(bandage.size() - 1);
@@ -95,7 +90,6 @@ public class FirstAidKit {
         this.arMask.add(arMask);
     }
 
-    public void add(Dummy dummy) {this.dummyList.add(dummy);}
 
     public String toString() {
 
@@ -187,15 +181,15 @@ public class FirstAidKit {
 
     }
 
-    public static List<String> getMostFrequentChildNames(List<Dummy> dummyList) {
+    public static List<String> getMostFrequentBandageMaterials(List<FirstAidKit> firstAidKitList) {
         List<String> result = new ArrayList<>();
-        dummyList.stream()
-                .flatMap(x -> x.getList().stream())
+        firstAidKitList.stream()
+                .flatMap(x -> x.getBandages().stream())
                 .collect(Collectors.toList())
                 .stream()
-                .collect(Collectors.groupingBy(DummyDaughter::getSex))
+                .collect(Collectors.groupingBy(BandagingMaterial::isSterile))
                 .forEach((key, value) -> value.stream()
-                        .collect(Collectors.groupingBy(DummyDaughter::getName, Collectors.counting()))
+                        .collect(Collectors.groupingBy(x -> x.getMaterial().getMaterial(), Collectors.counting()))
                         .entrySet()
                         .stream()
                         .max(Map.Entry.comparingByValue())
@@ -222,9 +216,9 @@ public class FirstAidKit {
                 max().getAsInt();
     }
 
-    public static Map<Boolean, List<BandagingMaterial>> getGroupByMaterialAndLength(List<BandagingMaterial> list) {
-        return list.stream().
-                collect(Collectors.groupingBy((p) -> p.getMaterial().equals(Material.CLOTH) && p.getLength() > 30));
+    public Map<Boolean, List<BandagingMaterial>> getGroupByMaterialAndLength(Function<BandagingMaterial, Boolean> bandagingMaterialBooleanFunction) {
+        return getBandages().stream().
+                collect(Collectors.groupingBy(bandagingMaterialBooleanFunction));
     }
 }
 

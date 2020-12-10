@@ -3,8 +3,8 @@ package com.example.bandages;
 import com.example.Material;
 
 public class MedicalScarf extends BandagingMaterial {
-    public MedicalScarf(int width, int length, Material material) {
-        super(width, length, material);
+    public MedicalScarf(int width, int length, Material material, boolean sterile) {
+        super(width, length, material, sterile);
     }
 
     @Override

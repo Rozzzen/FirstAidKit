@@ -1,15 +1,12 @@
 import com.example.*;
+import com.example.bandages.AdhesivePlaster;
 import com.example.bandages.Bandage;
 import com.example.bandages.BandagingMaterial;
 import com.example.bandages.GauzeNapkin;
 import org.junit.Assert;
 import org.junit.Test;
-import org.hamcrest.collection.IsMapContaining;
-import java.util.*;
-import java.util.stream.Collectors;
 
-import static com.example.FirstAidKit.getMostFrequentChildNames;
-import static org.hamcrest.core.Is.is;
+import java.util.*;
 
 public class CollectionToolsTest {
     CuttingDevice scalpel = new CuttingDevice() {
@@ -28,74 +25,72 @@ public class CollectionToolsTest {
     };
 
     @Test
-    public void getMostFrequentChildNames_TwoMostFrequentNames_True() {
-        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        firstAidKit1.getDummyList().add(new Dummy("Rachel", new DummyDaughter(1, "John"),
-                new DummyDaughter(2, "Marie")));
-        firstAidKit1.getDummyList().add(new Dummy("Michael",new DummyDaughter(1, "Ivan"),
-                new DummyDaughter(2, "Ivanna"),
-                new DummyDaughter(2, "Ivanna"),
-                new DummyDaughter(1, "John"),
-                new DummyDaughter(1, "John")));
-        List<String> result = getMostFrequentChildNames(firstAidKit1.getDummyList());
-        List<String> expected = Arrays.asList("John", "Ivanna");
-        Assert.assertEquals(result, expected);
+    public void getMostFrequentBandageMaterials_TwoMostFrequentNames_True() {
+        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH, true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        FirstAidKit firstAidKit2 = new FirstAidKit(new AdhesivePlaster(10, 50, Material.CLOTH, true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        firstAidKit2.add(new GauzeNapkin(10, 50, Material.CLOTH, true));
+        firstAidKit2.add(new GauzeNapkin(10, 50, Material.CLOTH, true));
+        firstAidKit2.add(new GauzeNapkin(10, 50, Material.SILK, true));
+        firstAidKit2.add(new GauzeNapkin(10, 50, Material.SILK, true));
+        firstAidKit2.add(new GauzeNapkin(10, 50, Material.SILK, true));
+        firstAidKit1.add(new GauzeNapkin(10, 50, Material.LEATHER, false));
+        firstAidKit1.add(new GauzeNapkin(10, 50, Material.LEATHER, false));
+        firstAidKit1.add(new GauzeNapkin(10, 50, Material.GAUZE, false));
+        List<FirstAidKit> firstAidKitList = Arrays.asList(firstAidKit1, firstAidKit2);
+        List<String> actual = FirstAidKit.getMostFrequentBandageMaterials(firstAidKitList);
+        List<String> expected = Arrays.asList("Leather", "Cloth");
+        Assert.assertEquals(actual, expected);
     }
 
     @Test
     public void getClothMaxLength_Equals120_True() {
-        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
-        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
-        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH));
-        firstAidKit1.add(new Bandage(20, 80, Material.SILK));
-        firstAidKit1.add(new Bandage(30, 150, Material.SILK));
-        List<BandagingMaterial> list = firstAidKit1.getBandages();
-        int actual = FirstAidKit.getClothLengthSum(list);
+        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH,true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER,true));
+        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH,true));
+        firstAidKit1.add(new Bandage(20, 80, Material.SILK,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.SILK,true));
+        int actual = FirstAidKit.getClothLengthSum(firstAidKit1.getBandages());
         int expected = 120;
         Assert.assertEquals(actual, expected);
     }
 
     @Test
     public void getAverageLength_Equals100_True() {
-        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
-        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
-        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH));
-        firstAidKit1.add(new Bandage(20, 80, Material.SILK));
-        firstAidKit1.add(new Bandage(30, 150, Material.SILK));
-        List<BandagingMaterial> list = firstAidKit1.getBandages();
-        double actual = FirstAidKit.getAverageLength(list);
+        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH,true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER,true));
+        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH,true));
+        firstAidKit1.add(new Bandage(20, 80, Material.SILK,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.SILK,true));
+        double actual = FirstAidKit.getAverageLength(firstAidKit1.getBandages());
         double expected = 100;
         Assert.assertEquals(actual, expected, 0);
     }
 
     @Test
     public void getMaxLength_Equals150_True() {
-        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
-        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
-        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH));
-        firstAidKit1.add(new Bandage(20, 80, Material.SILK));
-        firstAidKit1.add(new Bandage(30, 150, Material.SILK));
-        List<BandagingMaterial> list = firstAidKit1.getBandages();
-        int actual = FirstAidKit.getMaxLength(list);
+        FirstAidKit firstAidKit1 = new FirstAidKit(new GauzeNapkin(10, 50, Material.CLOTH,true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER,true));
+        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH,true));
+        firstAidKit1.add(new Bandage(20, 80, Material.SILK,true));
+        firstAidKit1.add(new Bandage(30, 150, Material.SILK,true));
+        int actual = FirstAidKit.getMaxLength(firstAidKit1.getBandages());
         int expected = 150;
         Assert.assertEquals(actual, expected);
     }
 
     @Test
     public void getGroupByMaterialAndLength_Filter_True() {
-        BandagingMaterial clothBandage = new Bandage(10, 50, Material.CLOTH);
-        BandagingMaterial gauzeBandage = new Bandage(20, 100, Material.GAUZE);
+        BandagingMaterial clothBandage = new Bandage(10, 50, Material.CLOTH,true);
+        BandagingMaterial gauzeBandage = new Bandage(20, 100, Material.GAUZE,true);
         FirstAidKit firstAidKit1 = new FirstAidKit(clothBandage, scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
         firstAidKit1.add(gauzeBandage);
-        List<BandagingMaterial> list = firstAidKit1.getBandages();
 
-        Map<Boolean, List<BandagingMaterial>> actual = list.stream().
-                collect(Collectors.groupingBy((p) -> p.getMaterial().equals(Material.CLOTH) && p.getLength() > 30));
-
+        Map<Boolean, List<BandagingMaterial>> actual = firstAidKit1.getGroupByMaterialAndLength(p -> p.getMaterial().equals(Material.CLOTH) && p.getLength() > 30);
         Map<Boolean, List<BandagingMaterial>> expected = new HashMap<>();
+
         List<BandagingMaterial> expectedFalseList = Collections.singletonList(gauzeBandage);
         List<BandagingMaterial> expectedTrueList = Collections.singletonList(clothBandage);
         expected.put(false, expectedFalseList);
