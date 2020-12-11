@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.bandages.AdhesivePlaster;
+import com.example.bandages.Bandage;
 import com.example.bandages.BandagingMaterial;
 import com.example.exceptions.FirstAidKitException;
 
@@ -134,50 +136,45 @@ public class FirstAidKit {
 
 
     public static void main(String[] args) throws FirstAidKitException {
-//        Pen redPen = new Pen() {
-//            @Override
-//            public void write(Notepad notepad, String message) {
-//                notepad.writePage(message);
-//                System.out.println("Write message using red pen");
-//            }
-//            @Override
-//            public String toString() {return "Red pen";}
-//        };
-//        Pen pencil = new Pen() {
-//            @Override
-//            public void write(Notepad notepad, String message) {
-//                notepad.writePage(message);
-//                System.out.println("Message was written using pencil"); }
-//            @Override
-//            public String toString() {return "Pencil"; }
-//        };
-//        CuttingDevice scalpel = new CuttingDevice() {
-//            @Override
-//            public void cut() { System.out.println("incision was made with a scalpel");}
-//            @Override
-//            public String toString() {return "Scalpel";}
-//        };
-//
-//        FirstAidKit firstAidKit1 =
-//                new FirstAidKit(new Bandage(10, 50, Material.CLOTH), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
-//        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE));
-//        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER));
-//        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH));
-//        firstAidKit1.add(new Bandage(20, 80, Material.SILK));
-//        firstAidKit1.add(new Bandage(30, 150, Material.SILK));
-//        firstAidKit1.dummyList.add(new Dummy("Rachel", new DummyDaughter(1, "John"),
-//                new DummyDaughter(2, "Marie")));
-//        firstAidKit1.dummyList.add(new Dummy("Michael",new DummyDaughter(1, "Ivan"),
-//                new DummyDaughter(2, "Ivanna"),
-//                new DummyDaughter(2, "Ivanna"),
-//                new DummyDaughter(1, "John"),
-//                new DummyDaughter(1, "John")));
-//
-//        System.out.println(getClothLengthSum(firstAidKit1.getBandages()));
-//        System.out.println(getMaxLength(firstAidKit1.getBandages()));
-//        System.out.println(getAverageLength(firstAidKit1.getBandages()));
-//        System.out.println(getGroupByMaterialAndLength(firstAidKit1.getBandages()));
-//        System.out.println(getMostFrequentChildNames(firstAidKit1.dummyList));
+        Pen redPen = new Pen() {
+            @Override
+            public void write(Notepad notepad, String message) {
+                notepad.writePage(message);
+                System.out.println("Write message using red pen");
+            }
+            @Override
+            public String toString() {return "Red pen";}
+        };
+        Pen pencil = new Pen() {
+            @Override
+            public void write(Notepad notepad, String message) {
+                notepad.writePage(message);
+                System.out.println("Message was written using pencil"); }
+            @Override
+            public String toString() {return "Pencil"; }
+        };
+        CuttingDevice scalpel = new CuttingDevice() {
+            @Override
+            public void cut() { System.out.println("incision was made with a scalpel");}
+            @Override
+            public String toString() {return "Scalpel";}
+        };
+
+        FirstAidKit firstAidKit1 =
+                new FirstAidKit(new Bandage(10, 50, Material.CLOTH, true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        FirstAidKit firstAidKit2 = new FirstAidKit(new AdhesivePlaster(10, 50, Material.CLOTH, true), scalpel, new Notepad(50), pencil, new Garrot(), new ARMask(), new Gloves(Material.RUBBER));
+        List<FirstAidKit> firstAidKitList = Arrays.asList(firstAidKit1, firstAidKit2);
+        firstAidKit1.add(new Bandage(20, 100, Material.GAUZE, true));
+        firstAidKit1.add(new Bandage(30, 150, Material.LEATHER, false));
+        firstAidKit1.add(new Bandage(10, 70, Material.CLOTH, true ));
+        firstAidKit1.add(new Bandage(20, 80, Material.SILK, false));
+        firstAidKit1.add(new Bandage(30, 150, Material.SILK, false));
+
+        System.out.println(getClothLengthSum(firstAidKit1.getBandages()));
+        System.out.println(getMaxLength(firstAidKit1.getBandages()));
+        System.out.println(getAverageLength(firstAidKit1.getBandages()));
+        System.out.println(firstAidKit1.getGroupByMaterialAndLength(p -> p.getMaterial().equals(Material.CLOTH) && p.getLength() > 30));
+        System.out.println(getMostFrequentBandageMaterials(firstAidKitList));
 
     }
 
