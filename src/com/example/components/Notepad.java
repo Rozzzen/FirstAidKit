@@ -1,4 +1,4 @@
-package com.example;
+package com.example.components;
 
 import java.util.Arrays;
 import java.util.Objects;

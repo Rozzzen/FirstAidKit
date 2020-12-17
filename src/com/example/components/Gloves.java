@@ -1,4 +1,6 @@
-package com.example;
+package com.example.components;
+
+import com.example.enums.Material;
 
 import java.util.Objects;
 

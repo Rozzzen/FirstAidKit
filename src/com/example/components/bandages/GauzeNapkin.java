@@ -1,6 +1,6 @@
-package com.example.bandages;
+package com.example.components.bandages;
 
-import com.example.Material;
+import com.example.enums.Material;
 
 public class GauzeNapkin extends BandagingMaterial {
 

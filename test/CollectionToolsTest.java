@@ -1,8 +1,15 @@
 import com.example.*;
-import com.example.bandages.AdhesivePlaster;
-import com.example.bandages.Bandage;
-import com.example.bandages.BandagingMaterial;
-import com.example.bandages.GauzeNapkin;
+import com.example.components.bandages.AdhesivePlaster;
+import com.example.components.bandages.Bandage;
+import com.example.components.bandages.BandagingMaterial;
+import com.example.components.bandages.GauzeNapkin;
+import com.example.components.ARMask;
+import com.example.components.Garrot;
+import com.example.components.Gloves;
+import com.example.components.Notepad;
+import com.example.enums.Material;
+import com.example.interfaces.CuttingDevice;
+import com.example.interfaces.Pen;
 import org.junit.Assert;
 import org.junit.Test;
 

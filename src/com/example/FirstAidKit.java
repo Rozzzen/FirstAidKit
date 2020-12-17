@@ -1,9 +1,16 @@
 package com.example;
 
-import com.example.bandages.AdhesivePlaster;
-import com.example.bandages.Bandage;
-import com.example.bandages.BandagingMaterial;
+import com.example.components.bandages.AdhesivePlaster;
+import com.example.components.bandages.Bandage;
+import com.example.components.bandages.BandagingMaterial;
+import com.example.components.ARMask;
+import com.example.components.Garrot;
+import com.example.components.Gloves;
+import com.example.components.Notepad;
+import com.example.enums.Material;
 import com.example.exceptions.FirstAidKitException;
+import com.example.interfaces.CuttingDevice;
+import com.example.interfaces.Pen;
 
 import java.util.*;
 import java.util.function.Function;
@@ -80,6 +87,19 @@ public class FirstAidKit {
         return temp;
     }
 
+
+    public void setCuttingDevice(CuttingDevice scalpel) {
+        this.cuttingDevice = scalpel;
+    }
+
+    public void setPen(Pen pencil) {
+        this.pen = pencil;
+    }
+
+    public void setNotepad(Notepad notepad) {
+        this.notepad = notepad;
+    }
+
     public void add(BandagingMaterial bandagingMaterial) {
         bandage.add(bandagingMaterial);
     }
@@ -136,6 +156,7 @@ public class FirstAidKit {
 
 
     public static void main(String[] args) throws FirstAidKitException {
+
         Pen redPen = new Pen() {
             @Override
             public void write(Notepad notepad, String message) {
@@ -217,5 +238,6 @@ public class FirstAidKit {
         return getBandages().stream().
                 collect(Collectors.groupingBy(bandagingMaterialBooleanFunction));
     }
+
 }
 

@@ -1,5 +1,12 @@
 import com.example.*;
-import com.example.bandages.*;
+import com.example.components.bandages.*;
+import com.example.components.ARMask;
+import com.example.components.Garrot;
+import com.example.components.Gloves;
+import com.example.components.Notepad;
+import com.example.enums.Material;
+import com.example.interfaces.CuttingDevice;
+import com.example.interfaces.Pen;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,7 +16,7 @@ public class FirstAidKitTest {
 
     CuttingDevice scalpel = new CuttingDevice() {
         @Override
-        public void cut() {}
+        public void cut() { System.out.println("incision was made with a scalpel");}
         @Override
         public String toString() {return "Scalpel";}
     };
@@ -17,7 +24,7 @@ public class FirstAidKitTest {
         @Override
         public void write(Notepad notepad, String message) {
             notepad.writePage(message);
-        }
+            System.out.println("Message was written using pencil"); }
         @Override
         public String toString() {return "Pencil"; }
     };

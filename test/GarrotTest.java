@@ -1,5 +1,5 @@
-import com.example.Garrot;
-import com.example.Notepad;
+import com.example.components.Garrot;
+import com.example.components.Notepad;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class GarrotTest {
 
     @Test
-    public void StopBleeding_EqualsCurrentTime_True() {
+    public void ApplicationDateTest() {
         Garrot garrot = new Garrot();
         Notepad notepad = new Notepad(25);
         garrot.stopBleeding(notepad);

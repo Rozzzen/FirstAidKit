@@ -1,4 +1,4 @@
-package com.example;
+package com.example.components;
 
 public class ARMask {
     public void doArtificalRespiration() {}
