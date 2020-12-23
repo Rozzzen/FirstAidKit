@@ -41,6 +41,9 @@ public class FirstAidKit {
         this.arMask.add(arMask);
         this.gloves = gloves;
     }
+    public FirstAidKit(Gloves gloves) {
+        this.gloves = gloves;
+    }
 
     public List<BandagingMaterial> getBandages() {
         return bandage;
@@ -111,6 +114,8 @@ public class FirstAidKit {
     public void add(ARMask arMask) {
         this.arMask.add(arMask);
     }
+
+    public boolean isGlovesOn() {return gloves.isON();}
 
 
     public String toString() {

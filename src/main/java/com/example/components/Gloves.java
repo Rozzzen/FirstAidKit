@@ -14,6 +14,8 @@ public class Gloves {
         this.material = material;
     }
 
+    public boolean isON() { return equipped; }
+
     public String toString() {
         return "Gloves with material: " + material.getMaterial();
     }

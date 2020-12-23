@@ -1,17 +1,20 @@
 package com.example;
 
+import com.example.components.Gloves;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.mockito.Mockito;
 
 public class FirstAidKitIT {
+
+    Gloves gloves = Mockito.mock(Gloves.class);
+    FirstAidKit firstAidKitWithGloves = new FirstAidKit(gloves);
+
     @Test
-    public void with_unspecified_arguments() {
-        Comparable c = mock(Comparable.class);
-        when(c.compareTo(anyInt())).thenReturn(-1);
-        Assert.assertEquals(-1, c.compareTo(5));
+    public void GlovesOn_EqualsTrue_True() {
+        final boolean expected = true;
+        Mockito.doReturn(true).when(gloves).isON();
+        boolean actual = firstAidKitWithGloves.isGlovesOn();
+        Assert.assertEquals(actual, expected);
     }
 }
