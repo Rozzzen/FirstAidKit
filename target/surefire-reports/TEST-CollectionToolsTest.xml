@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="CollectionToolsTest" time="1.51" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="CollectionToolsTest" time="0.313" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_261\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\Max\AppData\Local\Temp\surefire8540121410216260469\surefirebooter5518904369559432321.jar C:\Users\Max\AppData\Local\Temp\surefire8540121410216260469 2020-12-23T01-37-05_258-jvmRun1 surefire6440755833133994187tmp surefire_15104584285218359206tmp"/>
+    <property name="sun.java.command" value="C:\Users\Max\AppData\Local\Temp\surefire8222402734177856357\surefirebooter484698814444105914.jar C:\Users\Max\AppData\Local\Temp\surefire8222402734177856357 2020-12-23T16-39-55_691-jvmRun1 surefire6205085592780211810tmp surefire_27831066935457570396tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\Max\Desktop\n\roflanJava\1\target\test-classes;C:\Users\Max\Desktop\n\roflanJava\1\target\classes;C:\Users\Max\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Max\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Max\.m2\repository\org\mockito\mockito-core\3.6.28\mockito-core-3.6.28.jar;C:\Users\Max\.m2\repository\net\bytebuddy\byte-buddy\1.10.18\byte-buddy-1.10.18.jar;C:\Users\Max\.m2\repository\net\bytebuddy\byte-buddy-agent\1.10.18\byte-buddy-agent-1.10.18.jar;C:\Users\Max\.m2\repository\org\objenesis\objenesis\3.1\objenesis-3.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Max"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Max\AppData\Local\Temp\surefire8540121410216260469\surefirebooter5518904369559432321.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Max\AppData\Local\Temp\surefire8222402734177856357\surefirebooter484698814444105914.jar"/>
     <property name="databaseSchema" value="MY_TEST_SCHEMA_1"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_261\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_261\jre\classes"/>
     <property name="user.script" value=""/>
@@ -62,9 +62,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="getClothMaxLength_Equals120_True" classname="CollectionToolsTest" time="1.305"/>
-  <testcase name="getGroupByMaterialAndLength_Filter_True" classname="CollectionToolsTest" time="0.05"/>
-  <testcase name="getMaxLength_Equals150_True" classname="CollectionToolsTest" time="0.017"/>
-  <testcase name="getAverageLength_Equals100_True" classname="CollectionToolsTest" time="0.023"/>
-  <testcase name="getMostFrequentBandageMaterials_TwoMostFrequentNames_True" classname="CollectionToolsTest" time="0.035"/>
+  <testcase name="getClothMaxLength_Equals120_True" classname="CollectionToolsTest" time="0.178"/>
+  <testcase name="getGroupByMaterialAndLength_Filter_True" classname="CollectionToolsTest" time="0.006"/>
+  <testcase name="getMaxLength_Equals150_True" classname="CollectionToolsTest" time="0.001"/>
+  <testcase name="getAverageLength_Equals100_True" classname="CollectionToolsTest" time="0.003"/>
+  <testcase name="getMostFrequentBandageMaterials_TwoMostFrequentNames_True" classname="CollectionToolsTest" time="0.011"/>
 </testsuite>
