@@ -12,6 +12,7 @@ import com.example.exceptions.FirstAidKitException;
 import com.example.interfaces.CuttingDevice;
 import com.example.interfaces.Pen;
 
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class FirstAidKit {
     private final List<BandagingMaterial> bandage;
     private CuttingDevice cuttingDevice;
     private Notepad notepad;
-    private final Gloves gloves;
+    private Gloves gloves;
     private Pen pen;
     private final List<Garrot> garrot;
     private final List<ARMask> arMask;
@@ -43,6 +44,10 @@ public class FirstAidKit {
     }
     public FirstAidKit(Gloves gloves) {
         this.gloves = gloves;
+    }
+
+    public FirstAidKit(Garrot garrot) {
+        this.garrot.add(garrot);
     }
 
     public List<BandagingMaterial> getBandages() {
@@ -83,6 +88,10 @@ public class FirstAidKit {
         return temp;
     }
 
+    public Garrot getFirstGarrot() {
+        return garrot.get(0);
+    }
+
     public ARMask getArMask() throws FirstAidKitException {
         if (arMask.isEmpty()) throw new FirstAidKitException("Missing mask");
         ARMask temp = arMask.get(arMask.size() - 1);
@@ -116,6 +125,8 @@ public class FirstAidKit {
     }
 
     public boolean isGlovesOn() {return gloves.isON();}
+
+    public String getNotepadInformation() {return notepad.readAll();}
 
 
     public String toString() {

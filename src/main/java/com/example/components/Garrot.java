@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Garrot {
 
     private LocalTime time;
+    private Garrot garrot;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public void stopBleeding(Notepad notepad) {

@@ -16,10 +16,14 @@ public class Notepad {
 
     public void writePage(String string) { notepadContent[index++] = string; }
 
-    public void readAll() {
+    public void writeSomePages(Notepad notepad) {}
+
+    public String readAll() {
+        String s = "";
         for (int i = 0; i < index; i++) {
-            System.out.println(notepadContent[i]);
+            s += notepadContent[i];
         }
+        return s;
     }
 
     public String toString() {
