@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class BandageCollectionService {
 
-    public static List<String> getMostFrequentBandageMaterials(List<FirstAidKit> firstAidKitList) {
+    public List<String> getMostFrequentBandageMaterials(List<FirstAidKit> firstAidKitList) {
         List<String> result = new ArrayList<>();
         firstAidKitList.stream()
                 .flatMap(x -> x.getBandages().stream())
@@ -28,26 +28,26 @@ public class BandageCollectionService {
         return result;
     }
 
-    public static int getClothLengthSum(List<Bandage> list) {
+    public int getClothLengthSum(List<Bandage> list) {
         return list.stream().
                 filter(x -> x.getMaterial().equals(Material.CLOTH)).
                 mapToInt(Bandage::getLength).
                 sum();
     }
 
-    public static double getAverageLength(List<Bandage> list) {
+    public double getAverageLength(List<Bandage> list) {
         return list.stream().
                 mapToInt(Bandage::getLength).
                 average().getAsDouble();
     }
 
-    public static int getMaxLength(List<Bandage> list) {
+    public int getMaxLength(List<Bandage> list) {
         return list.stream().
                 mapToInt(Bandage::getLength).
                 max().getAsInt();
     }
 
-    public Map<Boolean, List<Bandage>> getGroupByMaterialAndLength(FirstAidKit firstAidKit, Function<Bandage, Boolean> bandagingMaterialBooleanFunction) {
+    public Map<Boolean, List<Bandage>> getGroupByMaterialAndLength(Function<Bandage, Boolean> bandagingMaterialBooleanFunction, FirstAidKit firstAidKit) {
         return firstAidKit.getBandages().stream().
                 collect(Collectors.groupingBy(bandagingMaterialBooleanFunction));
     }

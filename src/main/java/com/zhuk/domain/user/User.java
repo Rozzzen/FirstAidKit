@@ -1,6 +1,6 @@
 package com.zhuk.domain.user;
 
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 

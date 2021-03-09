@@ -1,12 +1,15 @@
 package com.zhuk.domain.aidkit;
 
 import com.zhuk.exception.FirstAidKitException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class FirstAidKit {
+
     private List<Bandage> bandages;
     private Notepad notepad;
     private Gloves gloves;
@@ -34,5 +37,13 @@ public class FirstAidKit {
         Garrot temp = garrots.get(garrots.size() - 1);
         garrots.remove(garrots.size() - 1);
         return temp;
+    }
+
+    public void add(Bandage bandagingMaterial) {
+        bandages.add(bandagingMaterial);
+    }
+
+    public void add(Garrot garrot) {
+        this.garrots.add(garrot);
     }
 }
