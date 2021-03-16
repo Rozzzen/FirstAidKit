@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class Gloves {
+
+    private int id;
     private Material material;
     private boolean equipped;
 

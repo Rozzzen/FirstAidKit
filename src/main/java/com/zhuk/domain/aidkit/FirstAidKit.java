@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class FirstAidKit {
 
+    private Long id;
     private List<Bandage> bandages;
     private Notepad notepad;
     private Gloves gloves;

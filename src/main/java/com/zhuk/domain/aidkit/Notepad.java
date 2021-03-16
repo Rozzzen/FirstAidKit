@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Notepad {
 
+    private int id;
     private final int pageNumber;
     private int index;
     public String[] notepadContent;

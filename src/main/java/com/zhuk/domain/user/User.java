@@ -3,10 +3,11 @@ package com.zhuk.domain.user;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 public class User {
-    private int id;
+    private Long id;
     private String name;
     private String surname;
     private Gender gender;
@@ -14,9 +15,9 @@ public class User {
     private String phone;
     private String password;
     private LocalDate bdate;
-    private UserRole role;
+    private Set<Role> roles;
 
-    public User(String name, String surname, Gender gender, String email, String phone, String password, LocalDate bdate, UserRole role) {
+    public User(String name, String surname, Gender gender, String email, String phone, String password, LocalDate bdate, Set<Role> roles) {
         this.name = name;
         this.surname = surname;
         this.gender = gender;
@@ -24,6 +25,6 @@ public class User {
         this.phone = phone;
         this.password = password;
         this.bdate = bdate;
-        this.role = role;
+        this.roles = roles;
     }
 }
