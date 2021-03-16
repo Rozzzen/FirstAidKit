@@ -12,12 +12,12 @@ public class FakeAidKitDataAcess implements AidKitRepo {
     private List<FirstAidKit> aidKits;
 
     @Override
-    public List<FirstAidKit> selectAllAidKit() {
+    public List<FirstAidKit> findAllAidKit() {
         return aidKits;
     }
 
     @Override
-    public Optional<FirstAidKit> selectAidKitById(Long id) {
+    public Optional<FirstAidKit> findAidKitById(Long id) {
         return aidKits.stream().
                 filter(aidkit -> aidkit.getId().equals(id))
                 .findFirst();
@@ -25,7 +25,7 @@ public class FakeAidKitDataAcess implements AidKitRepo {
 
     @Override
     public int deleteAidKitById(Long id) {
-        Optional<FirstAidKit> aidKitMaybe = selectAidKitById(id);
+        Optional<FirstAidKit> aidKitMaybe = findAidKitById(id);
         if(!aidKitMaybe.isPresent()) return 0;
         aidKits.remove(aidKitMaybe.get());
         return 1;
@@ -33,7 +33,7 @@ public class FakeAidKitDataAcess implements AidKitRepo {
 
     @Override
     public int updateAidKitById(Long id, FirstAidKit firstAidKit) {
-        return selectAidKitById(id).
+        return findAidKitById(id).
                 map(aidkit -> {
                     int indexOfAidKitToDelete = aidKits.indexOf(aidkit);
                     if (indexOfAidKitToDelete >= 0) {
@@ -43,5 +43,10 @@ public class FakeAidKitDataAcess implements AidKitRepo {
                     return 0;
                 })
                 .orElse(0);
+    }
+
+    @Override
+    public void saveAidKit(FirstAidKit firstAidKit) {
+        aidKits.add(firstAidKit);
     }
 }

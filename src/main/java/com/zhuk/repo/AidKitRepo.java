@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface AidKitRepo {
     int updateAidKitById(Long id, FirstAidKit firstAidKit);
     int deleteAidKitById(Long id);
-    Optional<FirstAidKit> selectAidKitById(Long id);
-    List<FirstAidKit> selectAllAidKit();
+    Optional<FirstAidKit> findAidKitById(Long id);
+    List<FirstAidKit> findAllAidKit();
+    void saveAidKit(FirstAidKit firstAidKit);
 }

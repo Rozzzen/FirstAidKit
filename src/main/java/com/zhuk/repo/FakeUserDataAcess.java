@@ -44,4 +44,9 @@ public class FakeUserDataAcess implements UserRepo{
                 })
                 .orElse(0);
     }
+
+    @Override
+    public void saveUser(User user) {
+        users.add(user);
+    }
 }

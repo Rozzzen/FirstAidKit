@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Gloves {
 
-    private int id;
+    private Long id;
     private Material material;
     private boolean equipped;
 

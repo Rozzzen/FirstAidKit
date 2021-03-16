@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 public class Garrot {
 
-    private int id;
+    private Long id;
     private int width;
     private int length;
     private LocalTime time;

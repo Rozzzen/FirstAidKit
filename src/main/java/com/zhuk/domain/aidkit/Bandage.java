@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Bandage {
 
-    private int id;
+    private Long id;
     private int width;
     private int length;
     protected Material material;

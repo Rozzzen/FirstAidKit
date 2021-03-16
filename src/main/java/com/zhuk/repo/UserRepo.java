@@ -11,4 +11,5 @@ public interface UserRepo {
     Optional<User> findUserById(Long id);
     int deleteUserById(Long id);
     int updateUserById(Long id, User user);
+    void saveUser(User user);
 }

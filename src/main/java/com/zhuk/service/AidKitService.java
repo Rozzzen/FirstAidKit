@@ -12,12 +12,12 @@ public class AidKitService {
 
     private AidKitRepo aidKitRepo;
 
-    public List<FirstAidKit> selectAllAidKit() {
-       return aidKitRepo.selectAllAidKit();
+    public List<FirstAidKit> findAllAidKit() {
+       return aidKitRepo.findAllAidKit();
     }
 
-    public Optional<FirstAidKit> selectAidKitById(Long id) {
-        return aidKitRepo.selectAidKitById(id);
+    public Optional<FirstAidKit> findAidKitById(Long id) {
+        return aidKitRepo.findAidKitById(id);
     }
 
     public int deleteAidKitById(Long id) {
@@ -28,4 +28,7 @@ public class AidKitService {
         return aidKitRepo.updateAidKitById(id, firstAidKit);
     }
 
+    public void saveAidKit(FirstAidKit firstAidKit) {
+        aidKitRepo.saveAidKit(firstAidKit);
+    }
 }

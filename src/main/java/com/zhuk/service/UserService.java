@@ -1,6 +1,5 @@
 package com.zhuk.service;
 
-import com.zhuk.domain.aidkit.FirstAidKit;
 import com.zhuk.domain.user.User;
 import com.zhuk.repo.UserRepo;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ public class UserService {
         return userRepo.findAllUser();
     }
 
-    public Optional<User> selectAidKitById(Long id) {
+    public Optional<User> findUserById(Long id) {
         return userRepo.findUserById(id);
     }
 
@@ -26,5 +25,9 @@ public class UserService {
 
     public int updateAidKitById(Long id, User user) {
         return userRepo.updateUserById(id, user);
+    }
+
+    public void saveUser(User user) {
+        userRepo.saveUser(user);
     }
 }
