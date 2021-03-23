@@ -1,4 +1,4 @@
-package com.zhuk.exception;
+package com.zhuk.exception.aidkit;
 
 public class FirstAidKitException extends Exception {
     public FirstAidKitException(String message) {

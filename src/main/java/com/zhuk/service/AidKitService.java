@@ -2,15 +2,22 @@ package com.zhuk.service;
 
 import com.zhuk.domain.aidkit.FirstAidKit;
 import com.zhuk.repo.AidKitRepo;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Service
 public class AidKitService {
 
-    private AidKitRepo aidKitRepo;
+    private final AidKitRepo aidKitRepo;
+
+    @Autowired
+    public AidKitService(@Qualifier("fakeaidkitdb") AidKitRepo aidKitRepo) {
+        this.aidKitRepo = aidKitRepo;
+    }
 
     public List<FirstAidKit> findAllAidKit() {
        return aidKitRepo.findAllAidKit();
@@ -30,5 +37,8 @@ public class AidKitService {
 
     public void saveAidKit(FirstAidKit firstAidKit) {
         aidKitRepo.saveAidKit(firstAidKit);
+    }
+    public void saveAidKit(FirstAidKit firstAidKit, Long id) {
+        aidKitRepo.saveAidKit(firstAidKit, id);
     }
 }

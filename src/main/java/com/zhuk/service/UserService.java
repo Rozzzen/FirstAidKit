@@ -2,14 +2,22 @@ package com.zhuk.service;
 
 import com.zhuk.domain.user.User;
 import com.zhuk.repo.UserRepo;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Service
 public class UserService {
-    private UserRepo userRepo;
+
+    private final UserRepo userRepo;
+
+    @Autowired
+    public UserService(@Qualifier("fakeuserdb") UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     public List<User> findAllUser() {
         return userRepo.findAllUser();
@@ -19,7 +27,7 @@ public class UserService {
         return userRepo.findUserById(id);
     }
 
-    public int deleteAidKitById(Long id) {
+    public int deleteUserById(Long id) {
         return userRepo.deleteUserById(id);
     }
 
@@ -29,5 +37,9 @@ public class UserService {
 
     public void saveUser(User user) {
         userRepo.saveUser(user);
+    }
+
+    public void saveUser(User user, Long id) {
+        userRepo.saveUser(user, id);
     }
 }

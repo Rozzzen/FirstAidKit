@@ -1,39 +1,56 @@
 package com.zhuk.controller;
 
 import com.zhuk.domain.aidkit.FirstAidKit;
-import com.zhuk.exception.FirstAidKitException;
+import com.zhuk.exception.aidkit.AidKitAlreadyExistsException;
+import com.zhuk.exception.aidkit.AidKitNotFoundException;
 import com.zhuk.service.AidKitService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
+@RestController
+@RequestMapping("aidkit")
 public class AidKitController {
-    private AidKitService aidKitService;
 
-    public void deleteAidKit(Long id) throws Exception {
-        if(aidKitService.deleteAidKitById(id) == 0) {
-            throw new FirstAidKitException("Failed to delete aidkit");
-        }
-        else {
-            System.out.println("All good");
-        }
+    private final AidKitService aidKitService;
+
+    @GetMapping
+    public List<FirstAidKit> AidkitList() {
+        return aidKitService.findAllAidKit();
     }
 
-    public void updateAidKit(Long id, FirstAidKit aidkit) throws Exception {
-        if(aidKitService.updateAidKitById(id, aidkit) == 0) {
-            throw new FirstAidKitException("Failed to update aidkit");
-        }
-        else {
-            System.out.println("All good");
-        }
+    @GetMapping("{id}")
+    public FirstAidKit AidKitById(@PathVariable Long id) throws AidKitNotFoundException {
+        return aidKitService.findAidKitById(id).orElseThrow(AidKitNotFoundException::new);
     }
 
-    public void saveAidKit(FirstAidKit firstAidKit) throws FirstAidKitException {
-        if(aidKitService.findAllAidKit().contains(firstAidKit)) {
-            throw new FirstAidKitException("this aidkit already exists");
+    @PutMapping("{id}")
+    public List<FirstAidKit> updateAidKit(@PathVariable Long id, @RequestBody FirstAidKit aidkit) {
+        if(aidKitService.findAidKitById(id).isPresent()) {
+            aidKitService.updateAidKitById(id, aidkit);
         }
         else {
-            aidKitService.saveAidKit(firstAidKit);
-            System.out.println("All good");
+            aidKitService.saveAidKit(aidkit, id);
+        }
+        return aidKitService.findAllAidKit();
+    }
+
+    @DeleteMapping("{id}")
+    public List<FirstAidKit> deleteAidKit(@PathVariable Long id) {
+        aidKitService.deleteAidKitById(id);
+        return aidKitService.findAllAidKit();
+    }
+
+    @PostMapping
+    public List<FirstAidKit> saveAidKit(@RequestBody FirstAidKit aidKit) throws AidKitAlreadyExistsException {
+        if(aidKitService.findAllAidKit().contains(aidKit)) {
+            throw new AidKitAlreadyExistsException("This aidkit already exists");
+        }
+        else {
+            aidKitService.saveAidKit(aidKit);
+            return aidKitService.findAllAidKit();
         }
     }
 }

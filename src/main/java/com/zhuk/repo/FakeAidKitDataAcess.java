@@ -1,15 +1,24 @@
 package com.zhuk.repo;
 
 import com.zhuk.domain.aidkit.FirstAidKit;
-import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Repository("fakeaidkitdb")
 public class FakeAidKitDataAcess implements AidKitRepo {
 
-    private List<FirstAidKit> aidKits;
+    Long counter = 4L;
+    private final List<FirstAidKit> aidKits = new ArrayList<>();
+
+    public FakeAidKitDataAcess() {
+        aidKits.add(new FirstAidKit(1L,null, null, null, null));
+        aidKits.add(new FirstAidKit(2L,null, null, null, null));
+        aidKits.add(new FirstAidKit(3L,null, null, null, null));
+        aidKits.add(new FirstAidKit(4L,null, null, null, null));
+    }
 
     @Override
     public List<FirstAidKit> findAllAidKit() {
@@ -47,6 +56,13 @@ public class FakeAidKitDataAcess implements AidKitRepo {
 
     @Override
     public void saveAidKit(FirstAidKit firstAidKit) {
+        firstAidKit.setId(++counter);
+        aidKits.add(firstAidKit);
+    }
+
+    @Override
+    public void saveAidKit(FirstAidKit firstAidKit, Long id) {
+        firstAidKit.setId(id);
         aidKits.add(firstAidKit);
     }
 }

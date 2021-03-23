@@ -1,39 +1,56 @@
 package com.zhuk.controller;
 
 import com.zhuk.domain.user.User;
-import com.zhuk.exception.FirstAidKitException;
+import com.zhuk.exception.user.UserAlreadyExistsException;
+import com.zhuk.exception.user.UserNotFoundException;
 import com.zhuk.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
+@RestController
+@RequestMapping("user")
 public class UserController {
-    private UserService userService;
 
-    public void updateUser(Long id, User user) throws FirstAidKitException {
-        if(userService.updateAidKitById(id, user) == 0) {
-            throw new FirstAidKitException("Failed to update user");
+    private final UserService userService;
+
+    @GetMapping
+    public List<User> UserList() {
+        return userService.findAllUser();
+    }
+
+    @GetMapping("{id}")
+    public User UserById(@PathVariable Long id) throws UserNotFoundException {
+        return userService.findUserById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    @PutMapping("{id}")
+    public List<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        if(userService.findUserById(id).isPresent()) {
+            userService.updateAidKitById(id, user);
         }
         else {
-            System.out.println("All good");
+            userService.saveUser(user, id);
         }
+        return userService.findAllUser();
     }
 
-    public void deleteUser(Long id) throws FirstAidKitException {
-       if(userService.deleteAidKitById(id) == 0) {
-           throw new FirstAidKitException("Failed to delete user");
-       }
-       else {
-           System.out.println("All good");
-       }
+    @DeleteMapping("{id}")
+    public List<User> deleteUser(@PathVariable Long id) {
+       userService.deleteUserById(id);
+       return userService.findAllUser();
     }
 
-    public void saveUser(User user) throws FirstAidKitException {
+    @PostMapping
+    public List<User> saveUser(@RequestBody User user) throws UserAlreadyExistsException {
         if(userService.findAllUser().contains(user)) {
-            throw new FirstAidKitException("This user already exists");
+            throw new UserAlreadyExistsException("This user already exists");
         }
         else {
             userService.saveUser(user);
-            System.out.println("All good");
+            return userService.findAllUser();
         }
     }
 }

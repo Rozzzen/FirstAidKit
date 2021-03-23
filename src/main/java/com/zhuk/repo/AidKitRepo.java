@@ -12,4 +12,5 @@ public interface AidKitRepo {
     Optional<FirstAidKit> findAidKitById(Long id);
     List<FirstAidKit> findAllAidKit();
     void saveAidKit(FirstAidKit firstAidKit);
+    void saveAidKit(FirstAidKit firstAidKit, Long id);
 }
