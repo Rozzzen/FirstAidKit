@@ -32,7 +32,7 @@ public class AidKitController {
             aidKitService.updateAidKitById(id, aidkit);
         }
         else {
-            aidKitService.saveAidKit(aidkit, id);
+            aidKitService.saveAidKit(aidkit);
         }
         return aidKitService.findAllAidKit();
     }

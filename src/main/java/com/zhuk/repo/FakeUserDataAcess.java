@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("fakeuserdb")
-public class FakeUserDataAcess implements UserRepo{
+public class FakeUserDataAcess implements UserRepo {
 
     Long counter = 4L;
     private final List<User> users = new ArrayList<>();

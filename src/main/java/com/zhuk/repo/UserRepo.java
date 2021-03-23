@@ -12,5 +12,5 @@ public interface UserRepo {
     int deleteUserById(Long id);
     int updateUserById(Long id, User user);
     void saveUser(User user);
-    void saveUser(User user, Long id);
+    void saveUser(User user, Long id );
 }
