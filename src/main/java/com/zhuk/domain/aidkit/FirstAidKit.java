@@ -1,6 +1,5 @@
 package com.zhuk.domain.aidkit;
 
-import com.zhuk.exception.aidkit.FirstAidKitException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

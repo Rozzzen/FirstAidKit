@@ -1,16 +1,23 @@
 package com.zhuk.repo;
 
 import com.zhuk.domain.order.Order;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository("fakeorderdb")
+@NoArgsConstructor
 public class FakeOrderDataAcess implements OrderRepo {
 
-    Long counter = 1L;
-    private final List<Order> orders = new ArrayList<>();
+    private Long counter;
+    private List<Order> orders = new ArrayList<>();
+
+    public FakeOrderDataAcess(List<Order> orders) {
+        this.orders = orders;
+        counter = (long) this.orders.size();
+    }
 
     @Override
     public List<Order> findAllOrder() {
@@ -19,7 +26,7 @@ public class FakeOrderDataAcess implements OrderRepo {
 
     @Override
     public void saveOrder(Order order) {
-        order.setId(counter++);
+        order.setId(++counter);
         orders.add(order);
     }
 }

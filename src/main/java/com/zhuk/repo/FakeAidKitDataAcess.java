@@ -10,14 +10,20 @@ import java.util.Optional;
 @Repository("fakeaidkitdb")
 public class FakeAidKitDataAcess implements AidKitRepo {
 
-    Long counter = 4L;
-    private final List<FirstAidKit> aidKits = new ArrayList<>();
+    private List<FirstAidKit> aidKits = new ArrayList<>();
+    private Long counter;
 
     public FakeAidKitDataAcess() {
         aidKits.add(new FirstAidKit(1L,null, null, null, null));
         aidKits.add(new FirstAidKit(2L,null, null, null, null));
         aidKits.add(new FirstAidKit(3L,null, null, null, null));
         aidKits.add(new FirstAidKit(4L,null, null, null, null));
+        counter = (long) aidKits.size();
+    }
+
+    public FakeAidKitDataAcess(List<FirstAidKit> aidKits) {
+        this.aidKits = aidKits;
+        counter = (long) aidKits.size();
     }
 
     @Override

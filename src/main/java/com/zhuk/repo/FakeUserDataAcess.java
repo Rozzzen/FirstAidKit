@@ -10,14 +10,20 @@ import java.util.Optional;
 @Repository("fakeuserdb")
 public class FakeUserDataAcess implements UserRepo {
 
-    Long counter = 4L;
-    private final List<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+    private Long counter;
 
     public FakeUserDataAcess() {
         users.add(new User(1L, "John", null, null, null, null, null, null, null));
         users.add(new User(2L, "Mark", null, null, null, null, null, null, null));
         users.add(new User(3L, "Steve", null, null, null, null, null, null, null));
         users.add(new User(4L, "Jake", null, null, null, null, null, null, null));
+        counter = (long) users.size();
+    }
+
+    public FakeUserDataAcess(List<User> users) {
+        this.users = users;
+        counter = (long) users.size();
     }
 
     @Override

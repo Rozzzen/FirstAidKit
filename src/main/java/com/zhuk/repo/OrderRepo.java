@@ -1,7 +1,6 @@
 package com.zhuk.repo;
 
 import com.zhuk.domain.order.Order;
-import com.zhuk.domain.user.User;
 
 import java.util.List;
 

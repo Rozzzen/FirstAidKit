@@ -31,7 +31,7 @@ public class UserService {
         return userRepo.deleteUserById(id);
     }
 
-    public int updateAidKitById(Long id, User user) {
+    public int updateUserById(Long id, User user) {
         return userRepo.updateUserById(id, user);
     }
 

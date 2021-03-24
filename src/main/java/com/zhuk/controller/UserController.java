@@ -29,7 +29,7 @@ public class UserController {
     @PutMapping("{id}")
     public List<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         if(userService.findUserById(id).isPresent()) {
-            userService.updateAidKitById(id, user);
+            userService.updateUserById(id, user);
         }
         else {
             userService.saveUser(user, id);

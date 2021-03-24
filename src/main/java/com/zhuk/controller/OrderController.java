@@ -1,9 +1,6 @@
 package com.zhuk.controller;
 
-import com.zhuk.domain.aidkit.FirstAidKit;
 import com.zhuk.domain.order.Order;
-import com.zhuk.domain.user.User;
-import com.zhuk.exception.user.UserAlreadyExistsException;
 import com.zhuk.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +20,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public List<Order> saveUser(@RequestBody Order order) throws UserAlreadyExistsException {
-        if(orderService.findAllOrder().contains(order)) {
-            throw new UserAlreadyExistsException("This user already exists");
-        }
-        else {
-            orderService.save(order);
-            return orderService.findAllOrder();
-        }
+    public List<Order> save(@RequestBody Order order) {
+        orderService.save(order);
+        return orderService.findAllOrder();
     }
 }
