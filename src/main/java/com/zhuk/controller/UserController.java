@@ -1,8 +1,6 @@
 package com.zhuk.controller;
 
-import com.zhuk.domain.user.User;
-import com.zhuk.exception.user.UserAlreadyExistsException;
-import com.zhuk.exception.user.UserNotFoundException;
+import com.zhuk.domain.User;
 import com.zhuk.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,43 +12,32 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 
-    private final UserService userService;
+    private UserService userService;
 
-    @GetMapping
-    public List<User> UserList() {
-        return userService.findAllUser();
+    @GetMapping("/")
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     @GetMapping("{id}")
-    public User UserById(@PathVariable Long id) throws UserNotFoundException {
-        return userService.findUserById(id).orElseThrow(UserNotFoundException::new);
-    }
-
-    @PutMapping("{id}")
-    public List<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        if(userService.findUserById(id).isPresent()) {
-            userService.updateUserById(id, user);
-        }
-        else {
-            userService.saveUser(user, id);
-        }
-        return userService.findAllUser();
-    }
-
-    @DeleteMapping("{id}")
-    public List<User> deleteUser(@PathVariable Long id) {
-       userService.deleteUserById(id);
-       return userService.findAllUser();
+    public User findById(@PathVariable Long id) {
+        return userService.findFirstById(id);
     }
 
     @PostMapping
-    public List<User> saveUser(@RequestBody User user) throws UserAlreadyExistsException {
-        if(userService.findAllUser().contains(user)) {
-            throw new UserAlreadyExistsException("This user already exists");
-        }
-        else {
-            userService.saveUser(user);
-            return userService.findAllUser();
-        }
+    public List<User> save(User user) {
+        userService.save(user);
+        return userService.findAll();
+    }
+
+    @PutMapping("{id}")
+    public List<User> update(@PathVariable Long id, @RequestBody User user) {
+        userService.update(id, user);
+        return userService.findAll();
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
     }
 }
