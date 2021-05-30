@@ -3,9 +3,11 @@ package com.zhuk.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -20,27 +22,19 @@ public class Bandage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Range( max = 500, message = "Should be in range[50, 500]")
+    @Range(min = 7, max = 20, message = "Should be in range[7, 20]")
+    @NotNull
     private Integer width;
 
-    @Range( max = 500, message = "Should be in range[50, 500]")
+    @Range(min = 500, max = 2000, message = "Should be in range[500, 2000]")
+    @NotNull
     private Integer length;
+
+    @Column(unique = true)
+    @NotBlank
+    private String name;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private Material material;
-
-    @OneToOne(mappedBy = "notepad")
-    private FirstAidKit aidKit;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bandage bandage = (Bandage) o;
-        return Objects.equals(getId(), bandage.getId()) &&
-                Objects.equals(getWidth(), bandage.getWidth()) &&
-                Objects.equals(getLength(), bandage.getLength()) &&
-                getMaterial() == bandage.getMaterial();
-    }
 }

@@ -2,7 +2,8 @@ package com.zhuk.service;
 
 import com.zhuk.domain.Gloves;
 import com.zhuk.domain.Material;
-import com.zhuk.exception.ElementNotFoundException;
+import com.zhuk.exception.exceptions.BandageNotFoundException;
+import com.zhuk.exception.exceptions.GlovesNotFoundException;
 import com.zhuk.repo.GlovesRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class GlovesService {
     private GlovesRepo glovesRepo;
 
     public Gloves findFirstById(Long id) {
-        return glovesRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        return glovesRepo.findById(id).orElseThrow(() -> new GlovesNotFoundException("Failed to find gloves with id:" + id));
     }
 
     public List<Gloves> findAll() {
@@ -32,13 +33,13 @@ public class GlovesService {
     }
 
     public void update(Long id, Gloves gloves) {
-        glovesRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        glovesRepo.findById(id).orElseThrow(() -> new GlovesNotFoundException("Failed to find gloves with id:" + id));
         gloves.setId(id);
         glovesRepo.save(gloves);
     }
 
     public void delete(Long id) {
-        glovesRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        glovesRepo.findById(id).orElseThrow(() -> new GlovesNotFoundException("Failed to find gloves with id:" + id));
         glovesRepo.deleteById(id);
     }
 }

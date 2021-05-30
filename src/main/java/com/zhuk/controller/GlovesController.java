@@ -4,8 +4,10 @@ import com.zhuk.domain.Gloves;
 import com.zhuk.domain.Material;
 import com.zhuk.service.GlovesService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,14 +18,14 @@ public class GlovesController {
     private GlovesService glovesService;
 
     @GetMapping("/material/{m}")
-    public List<Gloves> findAllByMaterial(@PathVariable String m) {
+    public ResponseEntity<List<Gloves>> findAllByMaterial(@PathVariable String m) {
         Material material = Material.valueOf(m.toUpperCase());
-        return glovesService.findAllByMaterial(material);
+        return ResponseEntity.ok(glovesService.findAllByMaterial(material));
     }
 
     @GetMapping("/")
-    public List<Gloves> findAll() {
-        return glovesService.findAll();
+    public ResponseEntity<List<Gloves>> findAll() {
+        return ResponseEntity.ok(glovesService.findAll());
     }
 
     @GetMapping("{id}")
@@ -32,15 +34,15 @@ public class GlovesController {
     }
 
     @PostMapping
-    public List<Gloves> save(Gloves gloves) {
+    public ResponseEntity<Gloves> save(@Valid @RequestBody Gloves gloves) {
         glovesService.save(gloves);
-        return glovesService.findAll();
+        return ResponseEntity.ok(gloves);
     }
 
     @PutMapping("{id}")
-    public List<Gloves> update(@PathVariable Long id, @RequestBody Gloves gloves) {
+    public ResponseEntity<Gloves> update(@PathVariable Long id, @RequestBody @Valid Gloves gloves) {
         glovesService.update(id, gloves);
-        return glovesService.findAll();
+        return ResponseEntity.ok(gloves);
     }
 
     @DeleteMapping("{id}")

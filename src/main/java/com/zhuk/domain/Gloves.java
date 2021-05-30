@@ -1,10 +1,10 @@
 package com.zhuk.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -19,23 +19,17 @@ public class Gloves {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    @NotBlank
+    private String name;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Material material;
 
     @Transient
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Boolean equipped;
-
-    @OneToOne(mappedBy = "gloves")
-    private FirstAidKit aidKit;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Gloves gloves = (Gloves) o;
-        return Objects.equals(getId(), gloves.getId()) &&
-                getMaterial() == gloves.getMaterial();
-    }
-
 }

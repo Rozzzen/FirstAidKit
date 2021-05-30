@@ -1,11 +1,12 @@
 package com.zhuk.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @AllArgsConstructor
+@ToString(exclude = {"aidKit"})
 @Table(name = "garrots")
 public class Garrot {
 
@@ -20,48 +22,20 @@ public class Garrot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Range( max = 500, message = "Should be in range[50, 500]")
+    @Range(min = 7, max = 20, message = "Should be in range[7, 20]")
+    @NotNull
     private Integer width;
 
-    @Range( max = 500, message = "Should be in range[50, 500]")
+    @Range(min = 500, max = 2000, message = "Should be in range[500, 2000]")
+    @NotNull
     private Integer length;
 
+    @Column(unique = true)
+    @NotBlank
+    private String name;
+
     @Transient
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private LocalTime setAtTime;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "notepad_id", referencedColumnName = "id")
-    private Notepad notepad;
-
-    @OneToOne(mappedBy = "notepad")
-    private FirstAidKit aidKit;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Garrot garrot = (Garrot) o;
-        return Objects.equals(getId(), garrot.getId()) &&
-                Objects.equals(getWidth(), garrot.getWidth()) &&
-                Objects.equals(getLength(), garrot.getLength()) &&
-                Objects.equals(getNotepad(), garrot.getNotepad());
-    }
-
-    public Garrot(Long id, @Range(max = 500, message = "Should be in range[50, 500]") Integer width, @Range(max = 500, message = "Should be in range[50, 500]") Integer length, Notepad notepad) {
-        this.id = id;
-        this.width = width;
-        this.length = length;
-        this.notepad = notepad;
-    }
-
-    //    public void stopBleeding() {
-//        System.out.println("Bleeding has stopeed using garrot");
-//        setApplicationDate();
-//    }
-
-//    private void setApplicationDate() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-//        time = LocalTime.now();
-//        notepad.write("Garrot was installed at: " + formatter.format(time));
-//    }
 }

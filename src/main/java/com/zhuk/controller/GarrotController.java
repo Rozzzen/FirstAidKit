@@ -3,37 +3,39 @@ package com.zhuk.controller;
 import com.zhuk.domain.Garrot;
 import com.zhuk.service.GarrotService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("garrot")
+@RequestMapping("garrots")
 public class GarrotController {
 
     private GarrotService garrotService;
 
     @GetMapping("/")
-    public List<Garrot> findAll() {
-        return garrotService.findAll();
+    public ResponseEntity<List<Garrot>> findAll() {
+        return ResponseEntity.ok(garrotService.findAll());
     }
 
     @GetMapping("{id}")
-    public Garrot findById(@PathVariable Long id) {
-        return garrotService.findFirstById(id);
+    public ResponseEntity<Garrot> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(garrotService.findFirstById(id));
     }
 
     @PostMapping
-    public List<Garrot> save(Garrot garrot) {
+    public ResponseEntity<Garrot> save(@Valid @RequestBody Garrot garrot) {
         garrotService.save(garrot);
-        return garrotService.findAll();
+        return ResponseEntity.ok(garrot);
     }
 
     @PutMapping("{id}")
-    public List<Garrot> update(@PathVariable Long id, @RequestBody Garrot garrot) {
+    public ResponseEntity<Garrot> update(@PathVariable Long id, @RequestBody @Valid Garrot garrot) {
         garrotService.update(id, garrot);
-        return garrotService.findAll();
+        return ResponseEntity.ok(garrot);
     }
 
     @DeleteMapping("{id}")

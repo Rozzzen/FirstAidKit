@@ -4,43 +4,47 @@ import com.zhuk.domain.Bandage;
 import com.zhuk.domain.Material;
 import com.zhuk.service.BandageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("bandage")
+@RequestMapping("bandages")
 public class BandageController {
 
     private BandageService bandageService;
 
     @GetMapping("/material/{m}")
-    public List<Bandage> findAllByMaterial(@PathVariable String m) {
+    public ResponseEntity<List<Bandage>> findAllByMaterial(@PathVariable String m) {
         Material material = Material.valueOf(m.toUpperCase());
-        return bandageService.findAllByMaterial(material);
+        return ResponseEntity.ok(bandageService.findAllByMaterial(material));
     }
 
     @GetMapping("/")
-    public List<Bandage> findAll() {
-        return bandageService.findAll();
+    public ResponseEntity<List<Bandage>> findAll() {
+        return ResponseEntity.ok(bandageService.findAll());
     }
 
     @GetMapping("{id}")
-    public Bandage findById(@PathVariable Long id) {
-        return bandageService.findFirstById(id);
+    public ResponseEntity<Bandage> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(bandageService.findFirstById(id));
     }
 
     @PostMapping
-    public List<Bandage> save(Bandage bandage) {
+    public ResponseEntity<Bandage> save(@Valid @RequestBody Bandage bandage) {
         bandageService.save(bandage);
-        return bandageService.findAll();
+        System.out.println("HEYYYYYYYYYY");
+        return ResponseEntity.status(HttpStatus.CREATED).body(bandage);
     }
 
     @PutMapping("{id}")
-    public List<Bandage> update(@PathVariable Long id, @RequestBody Bandage bandage) {
+    public ResponseEntity<Bandage> update(@PathVariable Long id, @RequestBody @Valid Bandage bandage) {
         bandageService.update(id, bandage);
-        return bandageService.findAll();
+        return ResponseEntity.ok(bandage);
     }
 
     @DeleteMapping("{id}")

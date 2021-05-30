@@ -1,7 +1,8 @@
 package com.zhuk.service;
 
 import com.zhuk.domain.FirstAidKit;
-import com.zhuk.exception.ElementNotFoundException;
+import com.zhuk.exception.exceptions.AidkitNotFoundException;
+import com.zhuk.exception.exceptions.BandageNotFoundException;
 import com.zhuk.repo.FirstAidKitRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class FirstAidKitService {
     private FirstAidKitRepo firstAidKitRepo;
 
     public FirstAidKit findFirstById(Long id) {
-        return firstAidKitRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        return firstAidKitRepo.findById(id).orElseThrow(() -> new AidkitNotFoundException("Failed to find aidkit with id:" + id));
     }
 
     public List<FirstAidKit> findAll() {
@@ -27,13 +28,13 @@ public class FirstAidKitService {
     }
 
     public void update(Long id, FirstAidKit firstAidKit) {
-        firstAidKitRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        firstAidKitRepo.findById(id).orElseThrow(() -> new AidkitNotFoundException("Failed to find aidkit with id:" + id));
         firstAidKit.setId(id);
         firstAidKitRepo.save(firstAidKit);
     }
 
     public void delete(Long id) {
-        firstAidKitRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        firstAidKitRepo.findById(id).orElseThrow(() -> new AidkitNotFoundException("Failed to find aidkit with id:" + id));
         firstAidKitRepo.deleteById(id);
     }
 }

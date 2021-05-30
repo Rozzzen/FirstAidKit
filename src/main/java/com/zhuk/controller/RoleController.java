@@ -9,7 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("role")
+@RequestMapping("roles")
 public class RoleController {
 
     private RoleService roleService;

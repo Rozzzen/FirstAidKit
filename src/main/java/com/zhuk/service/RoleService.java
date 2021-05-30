@@ -1,7 +1,8 @@
 package com.zhuk.service;
 
 import com.zhuk.domain.Role;
-import com.zhuk.exception.ElementNotFoundException;
+import com.zhuk.exception.exceptions.OrderNotFoundException;
+import com.zhuk.exception.exceptions.RoleNotFoundException;
 import com.zhuk.repo.RoleRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class RoleService {
     private RoleRepo roleRepo;
 
     public Role findFirstById(Long id) {
-        return roleRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        return roleRepo.findById(id).orElseThrow(() -> new RoleNotFoundException("Failed to find role with id:" + id));
     }
 
     public List<Role> findAll() {
@@ -27,13 +28,13 @@ public class RoleService {
     }
 
     public void update(Long id, Role role) {
-        roleRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        roleRepo.findById(id).orElseThrow(() -> new RoleNotFoundException("Failed to find role with id:" + id));
         role.setId(id);
         roleRepo.save(role);
     }
 
     public void delete(Long id) {
-        roleRepo.findById(id).orElseThrow(ElementNotFoundException::new);
+        roleRepo.findById(id).orElseThrow(() -> new RoleNotFoundException("Failed to find role with id:" + id));
         roleRepo.deleteById(id);
     }
 }
